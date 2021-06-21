@@ -1,0 +1,133 @@
+/*
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+/**
+ * Sample business network definition.
+ */
+namespace org.example.basic
+
+
+// Participants
+
+concept Address {
+    o String Plot_No 
+    o String street optional  
+    o String LandMark optional
+    o String city 
+    o String State optional
+    o String Country optional
+    o String PinCode
+    
+}
+
+
+abstract participant Trader {
+  o String CompanyName
+  o Address address
+}
+
+participant Manufacturer identified by tradeId extends Trader{
+  o String tradeId
+  
+}
+
+participant Verifier identified by tradeId extends Trader{
+  o String tradeId
+  
+}
+participant Distributor identified by tradeId extends Trader{
+  o String tradeId
+  
+}
+participant Retailer identified by tradeId extends Trader{
+  o String tradeId
+  
+}
+participant Customer identified by tradeId extends Trader{
+  o String tradeId
+ 
+}
+
+// Assets
+
+asset Commodity identified by commodityId {
+  o String commodityId
+  o String name
+  --> Trader owner
+  o String ReviewByVerifier optional
+    o String description
+    o Double quantity
+    o Double unitPrice 
+    o Double totalPrice optional
+    o Integer VerfiedStatus default=0
+}
+
+asset PurchaseOrder identified by orderid {
+    o String orderid
+    o Integer Status optional
+    --> Commodity commodity
+    --> Trader orderer
+    --> Trader vendor
+    
+    }
+
+
+asset FeedbackToManufacturer identified by FtMid {
+    o String FtMid
+    -->Manufacturer manufacturer
+    -->Trader Feedbacker
+    -->Commodity commodity
+    o String Discription
+}
+
+asset FeedbackToVerifier identified by FtVid {
+    o String FtVid
+    -->Verifier verifier
+    -->Trader Feedbacker
+    -->Commodity commodity
+    o String Discription
+}
+
+asset RequestForVerify identified by RfVid {
+     o String RfVid
+     -->Commodity commodity
+     -->Verifier verifier
+     -->Manufacturer manufacturer
+     
+}
+
+
+// Transactions
+
+transaction TransferCommodity{
+  --> Commodity asset
+  --> Trader owner
+  --> Trader newowner
+  --> PurchaseOrder OrderId
+  
+}
+
+ transaction verifyasset{
+  --> Commodity asset
+  --> Manufacturer owner  
+  --> RequestForVerify RequestId
+  o Integer Status range=[0,1]
+  o String Review
+}
+
+
+
+
+
+

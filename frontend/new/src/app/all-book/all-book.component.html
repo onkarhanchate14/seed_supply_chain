@@ -1,0 +1,25 @@
+
+<div class="container2">
+<h3><mat-icon routerLink="/view-card">home</mat-icon><span style="marginLeft:35%;">Welcome to Laboratory</span></h3>
+<input type="text" #input1 (keyup)="onKeyUp(input1.value)" placeholder="Search Here">
+  <div class="row" >
+
+    <div class="col-md-3 col-12" *ngFor="let item of arrBooks">
+              <div class="card">
+                <p id="name">Book: <span id="n"><b>{{item.name}}</b></span></p>
+                <p id="writer">Writer: <span id="w"><b>{{item.writer}}</b></span></p>
+                <p id="pages">Pages: <span id="p"><b>{{item.pages}}</b></span></p>
+                <p  id="price" class="badge badge-info">{{item.price}}$</p>
+                <div >
+                <button id="del" (click)="delete(item)">Delete</button>
+
+                </div>
+              </div>
+    </div>
+  </div>
+  <button routerLink="/book" style="backgroundColor:#00ACC1;marginLeft:40%;">Add New Book</button>
+  <button id="btn2" routerLink="/">Logout</button>
+</div>
+
+
+

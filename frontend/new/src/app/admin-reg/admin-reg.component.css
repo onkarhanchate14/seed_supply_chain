@@ -1,0 +1,69 @@
+input{
+    padding:1%;
+    margin: 1%;
+    width: 90%;
+    border: 2px solid rgb(212, 204, 204);
+  
+    /* text-align: center; */
+  
+  }
+  select{
+    width: 40%;
+  }
+  h3{
+    color: #00ACC1;
+    font-size:4rem;
+  }
+  .lblError{
+    color: red;
+  }
+  
+  label{
+    /* color: white; */
+    float: left;
+    font-family:Comic Sans MS;
+    font-weight: bold;
+  }
+  .container{
+    padding: 5%;
+  }
+  #loginn{
+    /* background-color: rgb(10, 10, 53); */
+    text-align: center;
+    height: 30rem;
+  
+    padding-left: 10%;
+    padding-right: 10%;
+  }
+  p{
+    float: right;
+  
+  }
+  #btn1{
+    padding: 2%;
+    font-weight: bold;
+    border: none;
+    background-color: #F50057;
+    color: white;
+    padding-left: 5%;
+    padding-right: 5%;
+    text-align: center;
+  margin: 1%;
+  }
+  #btn1:hover,#btn2:hover{
+    background-color: teal;
+  }
+  #btn2{
+    padding: 2%;
+    font-weight: bold;
+    border: none;
+    background-color: #f59f00;
+    color: white;
+    padding-left: 5%;
+    padding-right: 5%;
+    text-align: center;
+    margin: 1%;
+  
+  
+  }
+  

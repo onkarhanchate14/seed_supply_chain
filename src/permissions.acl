@@ -1,0 +1,212 @@
+/*
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+/**
+ * Sample access control list.
+ */
+
+
+// Read
+rule EverybodyCanReadEverything {
+    description: "Allow all participants read access to all resources"
+    participant: "org.example.basic.Trader"
+    operation: READ
+    resource: "org.example.basic.Commodity"
+    condition: (r.owner.getIdentifier() === p.getIdentifier())
+    action: ALLOW
+}
+
+
+//Commodity
+// read delete Commodity
+
+rule OwnerHasFullAccessToTheirAssets {
+    description: "Allow all participants full access to their assets"
+    participant(p): "org.example.basic.*"
+    operation: ALL
+    resource(r): "org.example.basic.Commodity"
+    condition: (p.getIdentifier() == r.owner.getIdentifier())
+    action: ALLOW
+}
+
+
+
+// PurchaseOrder
+
+rule OrdererReadPO {
+    description: "All orderers can read their own POs"
+    participant(p): "org.example.basic.*"
+    operation: READ
+    resource(r): "org.example.basic.PurchaseOrder"
+    condition: (r.orderer.getIdentifier() == p.getIdentifier())
+    action: ALLOW
+    }
+
+rule VendorReadPO {
+    description: "All vendors can read their own POs"
+    participant(p): "org.example.basic.*"
+    operation: READ
+    resource(r): "org.example.basic.PurchaseOrder"
+    condition: (r.vendor.getIdentifier() == p.getIdentifier())
+    action: ALLOW
+    }
+
+rule OwnerCanCreateToTheirPO {
+    description: "Allow all participants can create to their PO"
+    participant(p): "org.example.basic.Trader"
+    operation: CREATE
+    resource(r): "org.example.basic.PurchaseOrder"
+    condition: (r.orderer.getIdentifier() === p.getIdentifier())
+    action: ALLOW
+}
+
+
+
+// FeedbackToManufacturer
+
+rule FeedbackerReadFeedback {
+    description: "All Feedbacker can read their own Feedbacks"
+    participant(p): "org.example.basic.*"
+    operation: READ
+    resource(r): "org.example.basic.FeedbackToManufacturer"
+    condition: (r.Feedbacker.getIdentifier() == p.getIdentifier())
+    action: ALLOW
+    }
+
+rule ManufacturerReadFeedback {
+    description: "Manufacturer can read Feedback on him"
+    participant(p): "org.example.basic.*"
+    operation: READ
+    resource(r): "org.example.basic.FeedbackToManufacturer"
+    condition: (r.manufacturer.getIdentifier() == p.getIdentifier())
+    action: ALLOW
+    }
+
+rule FeedbackerCanCreateToTheirFeedback {
+    description: "Allow all participants can create to their Feedback To Manufacturer"
+    participant(p): "org.example.basic.Trader"
+    operation: CREATE
+    resource(r): "org.example.basic.FeedbackToManufacturer"
+    condition: (r.Feedbacker.getIdentifier() === p.getIdentifier() && r.commodity.owner.getIdentifier() == p.getIdentifier())     
+    action: ALLOW
+}
+
+
+// FeedbackToVerfier
+
+rule FeedbackerReadFeedbackToVerifier {
+    description: "All Feedbacker can read their own Feedbacks"
+    participant(p): "org.example.basic.*"
+    operation: READ
+    resource(r): "org.example.basic.FeedbackToVerifier"
+    condition: (r.Feedbacker.getIdentifier() == p.getIdentifier())
+    action: ALLOW
+    }
+
+rule VerifierReadFeedback {
+    description: "Verifier can read Feedback on him"
+    participant(p): "org.example.basic.*"
+    operation: READ
+    resource(r): "org.example.basic.FeedbackToVerifier"
+    condition: (r.verifier.getIdentifier() == p.getIdentifier())
+    action: ALLOW
+    }
+
+rule FeedbackerCanCreateToTheirFeedbacktoVerifier {
+    description: "Allow all participants can create to their Feedback To Verifier"
+    participant(p): "org.example.basic.Trader"
+    operation: CREATE
+    resource(r): "org.example.basic.FeedbackToVerifier"
+    condition: (r.Feedbacker.getIdentifier() === p.getIdentifier() && r.commodity.owner.getIdentifier() == p.getIdentifier())
+    action: ALLOW
+}
+
+
+// RequestForVerify
+
+rule ManufacturerReadRequestForVerify {
+    description: "All Manufacturer can read their own Request For Verify"
+    participant(p): "org.example.basic.*"
+    operation: READ
+    resource(r): "org.example.basic.RequestForVerify"
+    condition: (r.manufacturer.getIdentifier() == p.getIdentifier())
+    action: ALLOW
+    }
+
+rule VerifierReadRequestForVerify {
+    description: "Verifier can read Request for Verify"
+    participant(p): "org.example.basic.*"
+    operation: READ
+    resource(r): "org.example.basic.RequestForVerify"
+    condition: (r.verifier.getIdentifier() == p.getIdentifier())
+    action: ALLOW
+    }
+
+rule ManufacturerCanCreateToTheirRequestForVerifier {
+    description: "Allow all Manufacturer can create to their Request for Verify"
+    participant(p): "org.example.basic.Trader"
+    operation: CREATE
+    resource(r): "org.example.basic.RequestForVerify"
+    condition: (r.manufacturer.getIdentifier() === p.getIdentifier())
+    action: ALLOW
+    
+}
+
+
+//Transactios
+
+// TransferCommodity
+rule EverybodyCanSubmitTransactions {
+    description: "Allow all participants to submit transactions"
+    participant(p): "org.example.basic.Trader"
+    operation: CREATE
+    resource(r): "org.example.basic.TransferCommodity"
+    condition: (r.OrderId.vendor.getIdentifier() == p.getIdentifier() && r.asset.VerfiedStatus == 1)
+  	action: ALLOW
+}
+
+//verifiyasset transaction
+ rule CreateTransferCommodity {
+	description: "Verifier can access verifyasset transaction"
+	participant(p): "org.example.basic.Verifier"
+	operation: CREATE
+	resource(r): "org.example.basic.verifyasset"
+	condition: (r.RequestId.verifier.getIdentifier() == p.getIdentifier())
+	action: ALLOW
+}
+// System Rules
+
+rule SystemACL {
+    description: "System ACL to permit all access"
+    participant: "org.hyperledger.composer.system.Participant"
+    operation: ALL
+    resource: "org.hyperledger.composer.system.**"
+    action: ALLOW
+}
+
+rule NetworkAdminUser {
+    description: "Grant business network administrators full access to user resources"
+    participant: "org.hyperledger.composer.system.NetworkAdmin"
+    operation: ALL
+    resource: "**"
+    action: ALLOW
+}
+
+rule NetworkAdminSystem {
+    description: "Grant business network administrators full access to system resources"
+    participant: "org.hyperledger.composer.system.NetworkAdmin"
+    operation: ALL
+    resource: "org.hyperledger.composer.system.**"
+    action: ALLOW
+}

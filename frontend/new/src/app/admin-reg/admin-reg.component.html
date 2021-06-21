@@ -1,0 +1,56 @@
+
+
+<form [formGroup]="signupForm" (ngSubmit)="onSignup()">
+<div class="col-md-8 offset-md-2 " id="loginn" >
+<h3>Register </h3>
+      <div class="form-group ">
+
+          <div class="controls">
+          <label>User Name:<span class="lblError">*</span></label>
+              <input type="text" formControlName="name" placeholder="Your answer">
+              <p *ngIf="signupForm.get('name').hasError('required') && !signupForm.get('name').pristine "
+          class="lblError">User Name is required</p>
+          </div>
+      </div>
+      <div class="form-group ">
+
+          <div class="controls">
+          <label>User Email:<span class="lblError">*</span></label>
+              <input type="email" formControlName="email" placeholder="Your answer">
+               <p *ngIf="signupForm.get('email').hasError('required') && !signupForm.get('email').pristine "
+          class="lblError">User email is required</p>
+          <p *ngIf="signupForm.get('email').hasError('email') && !signupForm.get('email').pristine "
+          class="lblError">enter email proper </p>
+
+          </div>
+      </div>
+      <div class="form-group ">
+
+          <div class="controls">
+          <label>User Gender:<span class="lblError">*</span></label><br/><br/>
+            <select formControlName="gender" class="form-control">
+        <option value="" disabled>Choose country...</option>
+        <option value="Female">Female</option>
+        <option value="Male">Male</option>
+        <option value="other">Other</option>
+      </select>
+               <p *ngIf="signupForm.get('gender').hasError('required') && !signupForm.get('gender').pristine "
+          class="lblError">user gender is required</p>
+          </div>
+      </div>
+      <div class="form-group ">
+
+          <div class="controls">
+          <label>Create Password:<span class="lblError">*</span></label>
+              <input type="text" formControlName="password" placeholder="Your answer">
+               <p *ngIf="signupForm.get('password').hasError('required') && !signupForm.get('password').pristine "
+          class="lblError">Create password is required</p>
+
+          </div>
+      </div>
+
+      <button id="btn1" type="submit" [disabled]="signupForm.invalid">Submit</button>
+      <button id="btn2" routerLink="/">Back to Login</button>
+</div>
+</form>
+

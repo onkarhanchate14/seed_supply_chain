@@ -1,0 +1,95 @@
+input{
+  width: 97%;
+  padding: 1%;
+  margin: 2%;
+  background-color: rgb(34, 31, 31);
+  color: white;
+  font-size: 2rem;
+}
+h3{
+  color: #00ACC1;
+  font-size:2.5rem;
+  /* text-align: center; */
+}
+.container2{
+  padding-left: 5%;
+  padding-right: 5%;
+  padding-bottom: 5%;
+  padding-top: 1%;
+}
+.card{
+  width:100%;
+  padding: 5%;
+  margin:2% ;
+  text-align: center;
+
+}
+button{
+  padding: 2%;
+  margin: 1%;
+  font-weight: bold;
+  border: none;
+  background-color: #F50057;
+  color: white;
+  padding-left: 7%;
+  padding-right: 7%;
+  text-align: center;
+}
+#del{
+  padding: 4%;
+  width: 97%;
+  margin: 1%;
+  font-weight: bold;
+  border: none;
+  background-color: #F50057;
+  color: white;
+  padding-left: 7%;
+  padding-right: 7%;
+  text-align: center;
+}
+#del:hover, #btn2:hover{
+  background-color: #00ACC1;
+}
+button:hover{
+  background-color: brown;
+}
+#btn2{
+  padding: 2%;
+  font-weight: bold;
+  border: none;
+  background-color: #f59f00;
+  color: white;
+  padding-left: 5%;
+  padding-right: 5%;
+  text-align: center;
+  margin: 1%;
+
+
+}
+#name{
+  font-size: 1.5rem;
+}
+#writer{
+  font-size: 1.3rem;
+}
+#pages{
+  font-size: 1rem;
+}
+#price{
+  font-size: 1rem;
+  width: 20%;
+  text-align: center;
+ margin-left: 40%;
+}
+#n{
+  color: brown;
+  font-size: 2rem;
+}
+#w{
+  color: blue;
+  font-size: 2rem;
+}
+#p{
+  color: orangered;
+  font-size: 2rem;
+}

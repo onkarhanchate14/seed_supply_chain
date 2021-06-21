@@ -1,0 +1,43 @@
+
+<div class="container2">
+<h3><mat-icon routerLink="/view-card">home</mat-icon><span style="marginLeft:28%;">Serch here which book you want...</span></h3>
+
+<input type="text" #input2 placeholder="search here...">
+<button (click)="onKeyUp(input2.value)">Search</button>
+
+
+
+
+  <div class="row">
+  <div class="col-md-8 col-12 offset-md-2" >
+      <table class="table " >
+    <thead>
+      <tr>
+        <th>title</th>
+
+        <th>author_name</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of arrBookApi1.docs">
+        <td >{{item.title}}</td>
+
+        <td >{{item.author_name}}</td>
+      </tr>
+
+    </tbody>
+
+  </table>
+
+<button id="btn2" routerLink="/">Logout</button>
+
+
+  </div>
+  </div>
+
+
+
+
+
+
+
